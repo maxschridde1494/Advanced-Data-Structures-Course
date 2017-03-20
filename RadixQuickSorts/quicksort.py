@@ -8,26 +8,27 @@ def quick_sort(arr):
 		#choose pivot as first element if less than 3 elements in arr
 		if len(arr) < 3:
 			p = arr[0]
-			temp_arr = arr[1:]
+			l,r = partition(arr[1:], p)
 		else:
 			piv_choices = [arr[0], arr[len(arr)/2], arr[len(arr)-1]]
 			piv_choices.sort()
 			p = piv_choices[1]
 			if p == arr[0]:
-				temp_arr = arr[1:]
+				l,r = partition(arr[1:], p)
 			elif p == arr[len(arr)/2]:
-				temp_arr = arr[:len(arr)/2] + arr[len(arr)/2 + 1:]
+				l,r = partition(arr[:len(arr)/2] + arr[len(arr)/2 + 1:], p)
 			else:
-				temp_arr = arr[:len(arr)-1]
-		l,r = [],[]
-		for item in temp_arr:
-			if item <= p:
-				l.append(item)
-			else:
-				r.append(item)
-		l = quick_sort(l)
-		r = quick_sort(r)
-		return l + [p] + r
+				l,r = partition(arr[:len(arr)-1], p)
+		return quick_sort(l) + [p] + quick_sort(r)
+
+def partition(arr, p):
+	l,r = [],[]
+	for item in arr:
+		if item <= p:
+			l.append(item)
+		else:
+			r.append(item)
+	return (l,r)
 
 if __name__ == '__main__':
 	str_arr = generate_x_strings(10000)
