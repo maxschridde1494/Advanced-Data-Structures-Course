@@ -35,19 +35,14 @@ def generate_x_queues(x):
 def radix_sort(str_arr, MAX_LENGTH):
 	#buckets go from 0 to 126-32, 0 is the " " bucket
 	bins = generate_x_queues(95)
-	# for j in range(MAX_LENGTH):
-	for j in range(MAX_LENGTH - 1, -1, -1):
-		#put strings into correct queue / bin
+	for j in range(MAX_LENGTH):
 		for string in str_arr:
-			# k = MAX_LENGTH - (MAX_LENGTH + j - len(string)) - 1
-			# if k < 0:
-			if j > len(string) - 1:
-				#categorize into the space bin
+			k = MAX_LENGTH - (MAX_LENGTH + j - len(string)) - 1
+			if k < 0:
 				bucket_index = 0
 			else:
 				#categorize into bin of string[k]
-				# bucket_index = ord(string[k]) - 32
-				bucket_index = ord(string[j]) - 32
+				bucket_index = ord(string[k]) - 32
 			bins[bucket_index].enque(string)
 		str_arr = []
 		#place all strs back into array starting at bucket 0 --> for " " char
@@ -67,11 +62,11 @@ if __name__ == '__main__':
 	str_arr_cpy2 = str_arr_cpy[:]
 	sorted_str_arr = radix_sort(str_arr, 15)
 	str_arr_cpy.sort()
-	str_arr_cpy2 = quick_sort(str_arr_cpy2)
+	# str_arr_cpy2 = quick_sort(str_arr_cpy2)
 	print("last 10 of radix")
 	print(sorted_str_arr[len(sorted_str_arr) - 11:])
 	print("last 10 of sorted")
 	print(str_arr_cpy[len(str_arr_cpy) - 11:])
-	print("last 10 of quicksort")
-	print(str_arr_cpy2[len(str_arr_cpy2) - 11:])
+	# print("last 10 of quicksort")
+	# print(str_arr_cpy2[len(str_arr_cpy2) - 11:])
 
